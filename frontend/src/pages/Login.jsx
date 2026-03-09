@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../api';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { Wallet } from 'lucide-react';
+import { Wallet, Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
     const [form, setForm] = useState({ email: '', password: '' });
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { loginUser } = useAuth();
@@ -34,12 +35,12 @@ export default function Login() {
         <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 dark:bg-[#0f1117]">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent dark:from-indigo-900/20 dark:via-transparent dark:to-transparent pointer-events-none" />
 
-            <div className="w-full max-w-[440px] bg-white dark:bg-[#1e2130] border border-slate-200 dark:border-[rgba(255,255,255,0.08)] rounded-[24px] p-10 md:p-12 shadow-xl shadow-slate-200/50 dark:shadow-none relative z-10 animate-fade-in-up">
+            <div className="w-full max-w-[440px] bg-white dark:bg-[#1e2130] border border-slate-200 dark:border-white/10 rounded-[24px] p-10 md:p-12 shadow-xl shadow-slate-200/50 dark:shadow-none relative z-10">
 
                 <div className="flex flex-col items-center mb-10 text-center">
-                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 mb-4">
+                    <Link to="/" className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 mb-4 hover:scale-105 transition-transform">
                         <Wallet size={28} />
-                    </div>
+                    </Link>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">BudgetPro</h1>
                     <span className="text-sm text-slate-500 dark:text-slate-400">Monthly Budget Tracker</span>
                 </div>
@@ -47,25 +48,64 @@ export default function Login() {
                 <h2 className="text-[26px] font-bold text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-indigo-300 mb-2">Welcome back</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-8">Sign in to your account to continue</p>
 
-                {error && <div className="bg-red-50 text-red-600 border border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/30 rounded-lg p-3 text-sm mb-6">{error}</div>}
+                {error && <div className="bg-red-50 text-red-600 border border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/30 rounded-xl p-3.5 text-sm mb-6 flex items-start gap-2">⚠️ {error}</div>}
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
                         <label className="block text-[13px] font-medium text-slate-600 dark:text-slate-400 mb-2">Email address</label>
-                        <input className="form-input" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
+                        <input
+                            className="form-input"
+                            type="email"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            placeholder="you@example.com"
+                            required
+                        />
                     </div>
                     <div>
                         <label className="block text-[13px] font-medium text-slate-600 dark:text-slate-400 mb-2">Password</label>
-                        <input className="form-input" type="password" name="password" value={form.password} onChange={handleChange} placeholder="••••••••" required />
+                        <div className="relative">
+                            <input
+                                className="form-input pr-12"
+                                type={showPassword ? 'text' : 'password'}
+                                name="password"
+                                value={form.password}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
                     </div>
+
                     <button type="submit" className="btn btn-primary w-full py-3.5 text-[15px] mt-2" disabled={loading}>
-                        {loading ? 'Signing in...' : 'Sign In'}
+                        {loading ? (
+                            <span className="flex items-center justify-center gap-2">
+                                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                Signing in...
+                            </span>
+                        ) : 'Sign In'}
                     </button>
                 </form>
 
                 <div className="text-center mt-6 text-sm text-slate-500 dark:text-slate-400">
                     Don't have an account?{' '}
-                    <Link to="/signup" className="text-blue-600 dark:text-indigo-400 font-medium hover:underline">Create one</Link>
+                    <Link to="/signup" className="text-blue-600 dark:text-indigo-400 font-semibold hover:underline">
+                        Create one free
+                    </Link>
+                </div>
+                <div className="text-center mt-3 text-sm">
+                    <Link to="/" className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xs transition-colors">
+                        ← Back to home
+                    </Link>
                 </div>
             </div>
         </div>
