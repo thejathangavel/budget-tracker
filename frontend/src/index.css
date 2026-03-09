@@ -65,7 +65,7 @@
   }
 
   .main-content {
-    @apply flex-1 ml-0 md:ml-[260px] min-h-screen;
+    @apply flex-1 ml-0 md:ml-[260px] min-h-screen pt-14 md:pt-0;
   }
 
   /* Scrollbar override */
