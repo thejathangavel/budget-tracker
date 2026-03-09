@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-slate-50 text-slate-900 transition-colors duration-200;
+  }
+
+  .dark body {
+    @apply bg-[#0f1117] text-[#f0f2ff];
+  }
+}
+
+@layer components {
+
+  /* Common inputs */
+  .form-input {
+    @apply w-full px-4 py-3 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-200;
+  }
+
+  .dark .form-input {
+    @apply bg-[#252840] border-white/10 text-[#f0f2ff] focus:border-blue-500 focus:ring-blue-500/20;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all whitespace-nowrap outline-none;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-white border border-slate-200 text-slate-700 hover:bg-slate-50;
+  }
+
+  .dark .btn-secondary {
+    @apply bg-[#252840] border-white/10 text-white hover:bg-[#2c304d];
+  }
+
+  .btn-danger {
+    @apply bg-red-50 text-red-600 border border-red-200 hover:bg-red-100;
+  }
+
+  .dark .btn-danger {
+    @apply bg-red-500/10 text-red-400 border-red-500/20 hover:bg-red-500/20;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white border border-slate-200 rounded-2xl shadow-sm transition-all;
+  }
+
+  .dark .card {
+    @apply bg-[#1e2130] border-white/10 shadow-none;
+  }
+
+  /* Layout */
+  .app-layout {
+    @apply flex min-h-screen relative;
+  }
+
+  .main-content {
+    @apply flex-1 ml-0 md:ml-[260px] min-h-screen;
+  }
+
+  /* Scrollbar override */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-700 rounded;
+  }
+
+  .loader-spinner {
+    @apply w-10 h-10 border-4 border-slate-200 dark:border-slate-700 border-t-blue-500 rounded-full animate-spin;
+  }
+}
